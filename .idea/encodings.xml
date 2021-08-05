@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/hand-admin/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-admin/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-admin/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-file-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-file-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-file-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-gateway/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-iam-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-iam-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-iam-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-import-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-import-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-import-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-interface-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-interface-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-interface-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-message-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-message-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-message-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-oauth/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-oauth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-oauth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-platform/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-platform/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-platform/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-register/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-report-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-report-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-report-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-scheduler-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-scheduler-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-scheduler-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-swagger/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-workflow-plus-saas/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-workflow-plus-saas/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-workflow-plus-saas/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-workflow/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-workflow/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hand-workflow/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hzero-order/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hzero-order/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hzero-order/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

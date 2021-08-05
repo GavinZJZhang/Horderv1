@@ -1,0 +1,86 @@
+replicaCount: 1
+image:
+  repository: registry.choerodon.com.cn/hzero-hzero/hzero-oauth
+  pullPolicy: Always
+preJob:
+  image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/dbtool:0.6.2
+  timeout: 120
+  preInitDB:
+    enable: false
+    datasource:
+      url: jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: hzero
+      password: hzero
+env:
+  open:
+    HZERO_OAUTH_CUSTOM_RESOURCE_MATCHER: false
+    HZERO_OAUTH_NOT_CHECK_CLIENT_EQUALS: false
+    HZERO_OAUTH_DEVICE_ID_PARAMETER: device_id
+    HZERO_OAUTH_SOURCE_TYPE_PARAMETER: source_type
+    HZERO_OAUTH_ENABLE_APP_CAPTCHA: false
+    HZERO_OAUTH_ENABLE_ALWAYS_CAPTCHA: false
+    HZERO_OAUTH_CREDENTIALS_ALLOW_REFRESH: false
+    HZERO_OAUTH_CHECK_REDIRECT_URI: true
+    HZERO_OAUTH_LOGIN_SUPPORT_FIELDS: username,email,phone
+    HZERO_OAUTH_LOGIN_DEFAULT_TEMPLATE: slide
+    HZERO_OAUTH_LOGIN_SUCCESS_URL: http://dev.hzero.org/workplace
+    HZERO_OAUTH_LOGIN_PASS_REPLAY_EXPIRE: 30
+    HZERO_OAUTH_LOGIN_DEFAULT_CLIENT_ID: hzero-front-dev
+    HZERO_OAUTH_LOGIN_PASSWORD_ENCRYPT: true
+    HZERO_OAUTH_LOGIN_ACCOUNT_ENCRYPT: false
+    HZERO_OAUTH_BASE_URL: http://dev.hzero.org:8080/oauth
+    HZERO_OAUTH_SSO_ENABLE_COMPATIBILITY_MODE: false
+    HZERO_DB_OWNER: null
+    EUREKA_DEFAULT_ZONE: http://dev.hzero.org:8000/eureka/
+    EUREKA_INSTANCE_PREFER_IP_ADDRESS: true
+    SPRING_CLOUD_CONFIG_ENABLED: false
+    SPRING_CLOUD_CONFIG_URI: http://dev.hzero.org:8010/
+    SPRING_DATASOURCE_URL: jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    SPRING_DATASOURCE_USERNAME: hzero
+    SPRING_DATASOURCE_PASSWORD: hzero
+    SPRING_DATASOURCE_MINIMUM_IDLE: 20
+    SPRING_DATASOURCE_MAXIMUM_POOL_SIZE: 200
+    SPRING_DATASOURCE_CONNECTION_TIMEOUT: 30000
+    SPRING_REDIS_HOST: redis.hzero.org
+    SPRING_REDIS_PORT: 6379
+    SPRING_REDIS_DATABASE: 3
+    SPRING_REDIS_POOL_MAX_WAIT: 5000
+    SPRING_REDIS_POOL_MAX_ACTIVE: 50
+    SPRING_REDIS_POOL_MAX_IDLE: 50
+    HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS: 12000
+    HYSTRIX_THREADPOOL_DEFAULT_CORE_SIZE: 128
+    HYSTRIX_THREADPOOL_DEFAULT_MAXIMUM_SIZE: 256
+    RIBBON_SERVER_LIST_REFRESH_INTERVAL: 10000
+    RIBBON_READ_TIMEOUT: 5000
+    RIBBON_CONNECT_TIMEOUT: 2000
+    EUREKA_INSTANCE_LEASE_RENEWAL_INTERVAL_IN_SECONDS: 30
+    EUREKA_INSTANCE_LEASE_EXPIRATION_DURATION_IN_SECONDS: 45
+    SERVER_SERVLET_SESSION_TIMEOUT: 120
+    SERVER_UNDERTOW_IO_THREADS: 4
+    SERVER_UNDERTOW_WORKER_THREADS: 128
+    SERVER_UNDERTOW_BUFFER_SIZE: 1024
+    SPRING_PROFILES_ACTIVE: default
+    HZERO_USER_ENABLE_ROOT: false
+    SPRING_CLOUD_CONFIG_LABEL: null
+    LOG_LEVEL: info
+    JAVA_OPTS: |
+      -Xms1024m -Xmx1536m
+metrics:
+  path: /actuator/prometheus
+  group: spring-boot
+logs:
+  parser: spring-boot
+persistence:
+  enabled: false
+service:
+  enabled: false
+  type: ClusterIP
+  port: 8020
+  name: hzero-oauth
+deployment:
+  managementPort: 8021
+resources:
+  limits:
+    memory: 1.7Gi
+  requests:
+    memory: 1.2Gi

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.hzero.plugin:interface-authorization:1.6.3.RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/hzero/plugin/interface-authorization/1.6.3.RELEASE/interface-authorization-1.6.3.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/hzero/plugin/interface-authorization/1.6.3.RELEASE/interface-authorization-1.6.3.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/hzero/plugin/interface-authorization/1.6.3.RELEASE/interface-authorization-1.6.3.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

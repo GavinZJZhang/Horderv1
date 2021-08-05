@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-iam-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-oauth/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-platform/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-register/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-swagger/pom.xml" />
+        <option value="$PROJECT_DIR$/hzero-order/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-scheduler-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-message-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-file-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-import-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-workflow-plus-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-report/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-report-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-interface-saas/pom.xml" />
+        <option value="$PROJECT_DIR$/hand-workflow/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

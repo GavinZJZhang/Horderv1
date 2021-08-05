@@ -1,0 +1,224 @@
+spring:
+  application:
+    name: hzero-gateway
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  cache:
+    multi:
+      l1:
+        enabled: false
+        type: caffeine
+      l2:
+        enabled: false
+        type: redis
+      caches:
+        permission:
+          l1-spec: initialCapacity=50,maximumSize=500,expireAfterWrite=300s
+          l2-spec: expiration=300
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:4}
+    lettuce:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+  cloud:
+    gateway:
+      filter:
+        secure-headers:
+          frame-options: ${SECURE_HEADERS_FRAME_OPTIONS:allow-from http://front.hzero.org}
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: hiam
+        uri: lb://hzero-iam
+        predicates:
+        - Path=/iam/**
+        filters:
+        - StripPrefix=1
+      - id: hoth
+        uri: lb://hzero-oauth
+        predicates:
+        - Path=/oauth/**
+        filters:
+        - PreserveHostHeader
+      - id: hcnf
+        uri: lb://hzero-config
+        predicates:
+        - Path=/hcnf/**
+        filters:
+        - StripPrefix=1
+      - id: hwgr
+        uri: lb://hzero-swagger
+        predicates:
+        - Path=/swagger/**
+        filters:
+        - StripPrefix=1
+      - id: hagd
+        uri: lb://hzero-asgard
+        predicates:
+        - Path=/hagd/**
+        filters:
+        - StripPrefix=1
+      - id: hpfm
+        uri: lb://hzero-platform
+        predicates:
+        - Path=/hpfm/**
+        filters:
+        - StripPrefix=1
+      - id: hfle
+        uri: lb://hzero-file
+        predicates:
+        - Path=/hfle/**
+        filters:
+        - StripPrefix=1
+      - id: hmsg
+        uri: lb://hzero-message
+        predicates:
+        - Path=/hmsg/**
+        filters:
+        - StripPrefix=1
+      - id: hsdr
+        uri: lb://hzero-scheduler
+        predicates:
+        - Path=/hsdr/**
+        filters:
+        - StripPrefix=1
+      - id: himp
+        uri: lb://hzero-import
+        predicates:
+        - Path=/himp/**
+        filters:
+        - StripPrefix=1
+      - id: hitf
+        uri: lb://hzero-interface
+        predicates:
+        - Path=/hitf/**
+        filters:
+        - StripPrefix=1
+      - id: hrpt
+        uri: lb://hzero-report
+        predicates:
+        - Path=/hrpt/**
+      - id: hwfp
+        uri: lb://hzero-workflow-plus
+        predicates:
+        - Path=/hwfp/**
+        filters:
+        - StripPrefix=1
+      - id: hpay
+        uri: lb://hzero-pay
+        predicates:
+        - Path=/hpay/**
+        filters:
+        - StripPrefix=1
+      - id: hadm
+        uri: lb://hzero-admin
+        predicates:
+        - Path=/hadm/**
+      - id: hdsc
+        uri: lb://hzero-datasync
+        predicates:
+        - Path=/hdsc/**
+      default-filters:
+      - SetRequestHeader=H-Request-Encrypt, ${HZERO_REQUEST_ENCRYPT_MODE}
+      - StripPrefix=0
+      - StripPrefix=0
+      - SetResponseHeader=Access-Control-Expose-Headers, Content-Disposition
+      httpclient:
+        connect-timeout: ${SPRING_CLOUD_GATEWAY_HTTPCLIENT_CONNECTION_TIMEOUT:2000}
+        response-timeout: ${SPRING_CLOUD_GATEWAY_HTTPCLIENT_RESPONSE_TIMEOUT:20s}
+server:
+  undertow:
+    io-threads: ${SERVER_UNDERTOW_IO_THREADS:4}
+    worker-threads: ${SERVER_UNDERTOW_WORKER_THREADS:128}
+    buffer-size: ${SERVER_UNDERTOW_BUFFER_SIZE:1024}
+    direct-buffers: true
+    max-http-post-size: 10485760
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+ribbon:
+  ServerListRefreshInterval: ${RIBBON_SERVER_LIST_REFRESH_INTERVAL:10000}
+hzero:
+  gateway:
+    cors:
+      allowed-origins:
+      - ${HZERO_GATEWAY_CORS_ALLOWED_ORIGINS:*}
+      allowed-headers:
+      - ${HZERO_GATEWAY_CORS_ALLOWED_HEADERS:*}
+      allowed-methods:
+      - ${HZERO_GATEWAY_CORS_ALLOWED_METHODS:*}
+    helper:
+      enabled: true
+      signature:
+        enabled: false
+        secrets:
+        - secretId: hzero
+          secretKey: 537509248a3da7804d12905c102d14cd1bec000797a6178a7353a4c3ac23a0b3
+      jwt-key: hzero
+      enabled-jwt-log: ${HZERO_GATEWAY_HELPER_ENABLE_JWT_LOG:false}
+      filter:
+        collect-span:
+          enabled: ${HZERO_GATEWAY_FILTER_COLLECT_SPAN_ENABLED:false}
+        common-request:
+          check-tenant: ${HZERO_GATEWAY_FILTER_COMMON_REQUEST_CHECK_ORGANIZATION:true}
+          check-project: ${HZERO_GATEWAY_FILTER_COMMON_REQUEST_CHECK_PROJECT:true}
+          enabled: ${HZERO_GATEWAY_FILTER_COMMON_REQUEST_ENABLE:true}
+        menu-permission:
+          enabled: ${HZERO_GATEWAY_FILTER_MENU_PERMISSION:false}
+        api-replay:
+          enabled: ${HZERO_GATEWAY_FILTER_API_REPLAY:false}
+          skip-paths:
+          - /hwfp/**
+      permission:
+        cache-seconds: 600
+        cache-size: 3000
+        skip-paths:
+        - /oauth/**
+        - /swagger/swagger-ui.html
+        - /swagger/swagger-resources/**
+        - /swagger/webjars/**
+        - /swagger/docs/**
+        - /hwfp/editor-app/**
+        - /hwfp/lib/**
+        - /hwfp/activiti-editor
+        - /*/sock-js/**
+        - /*/websocket/**
+        - /maintain
+        - /actuator/**
+        - /hexl/lib/**
+        - /hexl-*/lib/**
+        - /hims/lib/**
+        - /hfle/lib/**
+        - /*/lib/**
+        - /**/webjars/**
+        - /hrpt/ureport/**
+  maintain:
+    global-info:
+      state: NORMAL
+    service-maintain-info:
+      oauth:
+        state: NORMAL
+    secret-key: hzero
+  request:
+    counter:
+      enable: false
+logging:
+  level:
+    io.choerodon: ${LOG_LEVEL:debug}
+    org.hzero: ${LOG_LEVEL:debug}

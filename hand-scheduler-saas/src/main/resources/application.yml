@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: hzero-scheduler
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_scheduler?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:1}
+    lettuce:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+server:
+  undertow:
+    io-threads: ${SERVER_UNDERTOW_IO_THREADS:4}
+    worker-threads: ${SERVER_UNDERTOW_WORKER_THREADS:128}
+    buffer-size: ${SERVER_UNDERTOW_BUFFER_SIZE:1024}
+    direct-buffers: true
+    max-http-post-size: 10485760
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: ${HYSTRIX_THREADPOOL_DEFAULT_CORE_SIZE:128}
+      maximumSize: ${HYSTRIX_THREADPOOL_DEFAULT_MAXIMUM_SIZE:256}
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:12000}
+ribbon:
+  ServerListRefreshInterval: ${RIBBON_SERVER_LIST_REFRESH_INTERVAL:10000}
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:5000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:2000}
+  OkToRetryOnAllOperations: false
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+hzero:
+  scheduler:
+    executor-code: ${HZERO_EXECUTOR_CODE:HSDR_EXECUTOR}
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+  resource:
+    pattern: ${HZERO_RESOURCE_PATTERN:/v1/*,/hzero/*,/hsdr/v1/*,/hsdr/hzero/*}
+  redis:
+    redis-queue: ${HZERO_REDIS_QUEUE:true}
+logging:
+  level:
+    org.apache.ibatis: ${LOG_LEVEL:info}
+    io.choerodon: ${LOG_LEVEL:info}
+    org.hzero: ${LOG_LEVEL:info}
+    org.hzero.boot.platform.lov: ${LOG_LEVEL:error}

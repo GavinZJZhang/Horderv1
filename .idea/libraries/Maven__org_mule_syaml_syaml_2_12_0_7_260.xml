@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.mule.syaml:syaml_2.12:0.7.260">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/syaml/syaml_2.12/0.7.260/syaml_2.12-0.7.260.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/syaml/syaml_2.12/0.7.260/syaml_2.12-0.7.260-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/syaml/syaml_2.12/0.7.260/syaml_2.12-0.7.260-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

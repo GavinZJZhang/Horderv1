@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: hzero-workflow
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_workflow?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:1}
+    jedis:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+  resources:
+    cache.period: 3600
+    chain.gzipped: true
+    chain.cache: true
+  cache:
+    type: caffeine
+    caffeine:
+      spec: initialCapacity=10,maximumSize=200,expireAfterWrite=7d
+    cache-names:
+    - m_cache
+server:
+  undertow:
+    io-threads: ${SERVER_UNDERTOW_IO_THREADS:4}
+    worker-threads: ${SERVER_UNDERTOW_WORKER_THREADS:128}
+    buffer-size: ${SERVER_UNDERTOW_BUFFER_SIZE:1024}
+    direct-buffers: true
+    max-http-post-size: 10485760
+    allow-unescaped-characters-in-url: true
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: 1000
+      maximumSize: 1000
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:40000}
+ribbon:
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:30000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:3000}
+  OkToRetryOnAllOperations: true
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 1
+mybatis:
+  mapperLocations: classpath*:/mapper/**/*.xml
+  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    mapUnderscoreToCamelCase: true
+    local-cache-scope: statement
+logging:
+  level:
+    org.apache.ibatis: ${LOG_LEVEL:info}
+    io.choerodon: ${LOG_LEVEL:info}
+    org.hzero: ${LOG_LEVEL:info}
+hzero:
+  import:
+    transaction-control: false
+  lock:
+    pattern: single
+    single-server:
+      address: ${SPRING_REDIS_HOST:redis.hzero.org}
+      port: ${SPRING_REDIS_PORT:6379}
+  scheduler:
+    executor-code: HWKF_EXECUTOR
+    auto-register: true
+    upload-log: false
+  cache-value:
+    enable: true
+  workflow:
+    global-dimension: ${HWKF_GLOBAL_DIMENSION:EMPLOYEE}
+    wco-agent-id: ${HWKF_WCO_AGENT_ID:1}
+    dt-agent-id: ${HWKF_DT_AGENT_ID:1}
+    attachment:
+      bucket-name: ${HWKF_BUCKET_NAME:hwkf}
+      root-dir: ${HWKF_ROOT_DIR:hwkf01/}
+    urge-template: ${HWKF_URGE_MESSAGE_TEMPLATE:HWKF.FLOW_URGE}
+    todo-template: ${HWKF_TODO_MESSAGE_TEMPLATE:HWKF.TODO}
+    reject-applier-template: ${HWKF_REJECT_APPLIER_TEMPLATE:HWKF.REJECT_APPLIER}
+    reject-approver-template: ${HWKF_REJECT_APPROVER_TEMPLATE:HWKF.REJECT_APPROVER}
+    web-domain-name: ${HWKF_WEB_DOMAIN_NAME:dev.hzero.org}
+    model:
+      enabled: ${HWKF_MODEL_ENABLE:true}
+    executor:
+      core-pool-size: ${HWKF_EXECUTOR_CORE_POOL_SIZE:8}
+      max-pool-size: ${HWKF_EXECUTOR_MAX_POOL_SIZE:20}
+      queue-capacity: ${HWKF_EXECUTOR_QUEUE_CAPACITY:50}
+      keep-alive-seconds: ${HWKF_EXECUTOR_KEEP_ALIVE_SECONDS:60}
+    archive:
+      batchPageSize: ${HWKF_ARCHIVE_BATCH_PAGE_SIZE:10000}

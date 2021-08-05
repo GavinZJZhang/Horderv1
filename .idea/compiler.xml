@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hand-import-saas" />
+        <module name="hand-register" />
+        <module name="hand-gateway" />
+        <module name="hzero-order" />
+        <module name="hand-platform-saas" />
+        <module name="hand-scheduler-saas" />
+        <module name="hand-file-saas" />
+        <module name="hand-admin-saas" />
+        <module name="hand-interface-saas" />
+        <module name="hand-oauth" />
+        <module name="hand-workflow-plus-saas" />
+        <module name="hand-message-saas" />
+        <module name="hand-iam-saas" />
+        <module name="hand-swagger" />
+        <module name="hand-report-saas" />
+        <module name="hand-workflow" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hand-admin-saas" target="1.8" />
+      <module name="hand-file-saas" target="1.8" />
+      <module name="hand-gateway" target="1.8" />
+      <module name="hand-iam-saas" target="1.8" />
+      <module name="hand-import-saas" target="1.8" />
+      <module name="hand-interface-saas" target="1.8" />
+      <module name="hand-message-saas" target="1.8" />
+      <module name="hand-oauth" target="1.8" />
+      <module name="hand-parent-33292" target="1.8" />
+      <module name="hand-platform-saas" target="1.8" />
+      <module name="hand-register" target="1.8" />
+      <module name="hand-report-saas" target="1.8" />
+      <module name="hand-scheduler-saas" target="1.8" />
+      <module name="hand-swagger" target="1.8" />
+      <module name="hand-workflow" target="1.8" />
+      <module name="hand-workflow-plus-saas" target="1.8" />
+      <module name="hzero-order" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hand-admin-saas" options="-parameters" />
+      <module name="hand-file-saas" options="-parameters" />
+      <module name="hand-gateway" options="-parameters" />
+      <module name="hand-iam-saas" options="-parameters" />
+      <module name="hand-import-saas" options="-parameters" />
+      <module name="hand-interface-saas" options="-parameters" />
+      <module name="hand-message-saas" options="-parameters" />
+      <module name="hand-oauth" options="-parameters" />
+      <module name="hand-platform-saas" options="-parameters" />
+      <module name="hand-register" options="-parameters" />
+      <module name="hand-report-saas" options="-parameters" />
+      <module name="hand-scheduler-saas" options="-parameters" />
+      <module name="hand-swagger" options="-parameters" />
+      <module name="hand-workflow" options="-parameters" />
+      <module name="hand-workflow-plus-saas" options="-parameters" />
+      <module name="hzero-order" options="-parameters" />
+    </option>
+  </component>
+</project>

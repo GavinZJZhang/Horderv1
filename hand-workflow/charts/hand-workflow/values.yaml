@@ -1,0 +1,68 @@
+replicaCount: 1
+image:
+  repository: registry.choerodon.com.cn/hzero-hzero/hzero-workflow
+  pullPolicy: Always
+preJob:
+  image: registry.cn-hangzhou.aliyuncs.com/choerodon-tools/dbtool:0.6.2
+  timeout: 1200
+  preInitDB:
+    enable: false
+    datasource:
+      url: jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: hzero
+      password: hzero
+env:
+  open:
+    CHOERODON_EUREKA_EVENT_PARSE_PERMISSION: true
+    EUREKA_DEFAULT_ZONE: http://dev.hzero.org:8000/eureka/
+    EUREKA_INSTANCE_PREFER_IP_ADDRESS: true
+    SPRING_CLOUD_CONFIG_ENABLED: false
+    SPRING_CLOUD_CONFIG_URI: http://dev.hzero.org:8010/
+    SPRING_DATASOURCE_URL: jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    SPRING_DATASOURCE_USERNAME: hzero
+    SPRING_DATASOURCE_PASSWORD: hzero
+    SPRING_REDIS_HOST: redis.hzero.org
+    SPRING_REDIS_DATABASE: 1
+    HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS: 40000
+    RIBBON_READ_TIMEOUT: 30000
+    RIBBON_CONNECT_TIMEOUT: 3000
+    LOG_LEVEL: info
+    HWKF_GLOBAL_DIMENSION: EMPLOYEE
+    HWKF_WCO_AGENT_ID: 1
+    HWKF_DT_AGENT_ID: 1
+    HWKF_URGE_MESSAGE_TEMPLATE: HWKF.FLOW_URGE
+    HWKF_TODO_MESSAGE_TEMPLATE: HWKF.TODO
+    HWKF_REJECT_APPLIER_TEMPLATE: HWKF.REJECT_APPLIER
+    HWKF_REJECT_APPROVER_TEMPLATE: HWKF.REJECT_APPROVER
+    HWKF_EXECUTOR_CORE_POOL_SIZE: 8
+    HWKF_EXECUTOR_MAX_POOL_SIZE: 20
+    HWKF_EXECUTOR_QUEUE_CAPACITY: 50
+    HWKF_EXECUTOR_KEEP_ALIVE_SECONDS: 60
+    HWKF_ARCHIVE_BATCH_PAGE_SIZE: 10000
+    JAVA_OPTS: |
+      -Xms1024m -Xmx1536m
+metrics:
+  path: /prometheus
+  group: spring-boot
+logs:
+  parser: spring-boot
+persistence:
+  enabled: false
+service:
+  enabled: false
+  type: ClusterIP
+  port: 8165
+  name: hzero-workflow
+deployment:
+  managementPort: 8166
+resources:
+  limits:
+    memory: 1.7Gi
+  requests:
+    memory: 1.2Gi
+hzero:
+  HZERO_NODE_GROUP_ID: 0
+  HZERO_PRODUCT_CODE: DEFAULT
+  HZERO_PRODUCT_VERSION_CODE: DEFAULT
+  HZERO_PRODUCT_ENV_CODE: DEFAULT
+  HZERO_SERVICE_VERSION_CODE: DEFAULT

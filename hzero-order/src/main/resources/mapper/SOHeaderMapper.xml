@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hand.hodr.infra.mapper.SOHeaderMapper">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="org.hand.hodr.domain.entity.SOHeader">
+        <result column="so_header_id" property="soHeaderId" jdbcType="DECIMAL"/>
+        <result column="order_number" property="orderNumber" jdbcType="VARCHAR"/>
+        <result column="company_id" property="companyId" jdbcType="DECIMAL"/>
+        <result column="order_date" property="orderDate" jdbcType="DATE"/>
+        <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
+        <result column="customer_id" property="customerId" jdbcType="DECIMAL"/>
+        <result column="create_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="create_date" property="creationDate" jdbcType="DATE"/>
+        <result column="last_update_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <select id="selectSOHAll" resultType="org.hand.hodr.domain.entity.SOHeader">
+        select sh.so_header_id soHeaderId,
+        order_number orderNumber,
+        sh.company_id companyId,
+        order_date orderDate,
+        order_status orderStatus,
+        sh.customer_id customerId,
+        sh.created_by createdBy,
+        sh.creation_date creationDate,
+        sh.last_updated_by lastUpdatedBy,
+        sh.last_update_date lastUpdateDate,
+        sh.object_version_number objectVersionNumber
+        from hodr_so_header sh
+            left join hodr_company cp on sh.company_id=cp.company_id
+            left join hodr_customer ct on sh.customer_id=ct.customer_id
+            left join hodr_so_line sl on sh.so_header_id=sl.so_header_id
+    </select>
+
+    <insert id="addSOHeader" parameterType="org.hand.hodr.domain.entity.SOHeader">
+        insert into hodr_so_header(so_header_id,order_number,company_id,order_date,order_status,customer_id,created_by,creation_date,last_updated_by,last_update_date,object_version_number) values(#{soHeaderId},#{orderNumber},#{companyId},#{orderDate},#{orderStatus},#{customerId},#{createdBy},#{creationDate},#{lastUpdatedBy},#{lastUpdateDate},#{objectVersionNumber});
+    </insert>
+
+    <!--    <delete id="deleteSOHeader" parameterType="com.hand.training.domain.entity.SOHeader">-->
+    <!--        delete-->
+    <!--        from-->
+    <!--    </delete>-->
+
+    <update id="updateSOHeader" parameterType="org.hand.hodr.domain.entity.SOHeader">
+        update hodr_so_header
+        set order_status=#{orderStatus},
+            last_update_date=now()
+        where so_header_id=#{soHeaderId}
+    </update>
+
+    <update id="updateSOHStatusFromAPPROVEDToCLOSED">
+        update hodr_so_header
+        set order_status='CLOSED',
+            last_update_date=now()
+        where order_status='APPROVED'
+    </update>
+
+<!--    <select id="selectSOHByIdNumStat" parameterType="org.hand.hodr.api.controller.v1.dto.SelectSOHByIdNumStatDto" resultType="org.hand.hodr.domain.entity.SOHeader">-->
+<!--        select sh.so_header_id soHeaderId,-->
+<!--        order_number orderNumber,-->
+<!--        company_name companyName,-->
+<!--        customer_name customerName,-->
+<!--        order_date orderDate,-->
+<!--        order_status orderStatus,-->
+<!--        SUM(order_quantity*unit_selling_price) orderPrice-->
+<!--        from hodr_so_header sh-->
+<!--        left join hodr_company cp on sh.company_id=cp.company_id-->
+<!--        left join hodr_customer ct on sh.customer_id=ct.customer_id-->
+<!--        left join hodr_so_line sl on sh.so_header_id=sl.so_header_id-->
+<!--        <where>-->
+<!--            <if test="companyId != null and companyId != ''">-->
+<!--                and sh.company_id = #{companyId}-->
+<!--            </if>-->
+<!--            <if test="customerId != null and customerId != ''">-->
+<!--                and sh.customer_id = #{customerId}-->
+<!--            </if>-->
+<!--            <if test="orderNumber != null and orderNumber != ''">-->
+<!--                and order_number like CONCAT('%',#{orderNumber},'%')-->
+<!--            </if>-->
+<!--            <if test="orderStatus != null and orderStatus != ''">-->
+<!--                and order_status = #{orderStatus}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        group by sh.so_header_id-->
+<!--    </select>-->
+    
+    <select id="selectLastInsertId" resultType="Long">
+        select LAST_INSERT_ID()
+    </select>
+
+</mapper>

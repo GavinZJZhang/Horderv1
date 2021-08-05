@@ -1,0 +1,102 @@
+spring:
+  application:
+    name: hzero-oauth
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:3}
+    lettuce:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+  resources:
+    cache:
+      period: 3600
+    chain.gzipped: true
+    chain.cache: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  thymeleaf:
+    mode: LEGACYHTML5
+server:
+  undertow:
+    io-threads: ${SERVER_UNDERTOW_IO_THREADS:4}
+    worker-threads: ${SERVER_UNDERTOW_WORKER_THREADS:128}
+    buffer-size: ${SERVER_UNDERTOW_BUFFER_SIZE:1024}
+    direct-buffers: true
+    max-http-post-size: 10485760
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: ${HYSTRIX_THREADPOOL_DEFAULT_CORE_SIZE:128}
+      maximumSize: ${HYSTRIX_THREADPOOL_DEFAULT_MAXIMUM_SIZE:256}
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:12000}
+ribbon:
+  ServerListRefreshInterval: ${RIBBON_SERVER_LIST_REFRESH_INTERVAL:10000}
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:5000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:2000}
+  OkToRetryOnAllOperations: false
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+hzero:
+  captcha:
+    enable: true
+  oauth:
+    custom-resource-matcher: ${HZERO_OAUTH_CUSTOM_RESOURCE_MATCHER:false}
+    not-check-client-equals: ${HZERO_OAUTH_NOT_CHECK_CLIENT_EQUALS:false}
+    device-id-parameter: ${HZERO_OAUTH_DEVICE_ID_PARAMETER:device_id}
+    source-type-parameter: ${HZERO_OAUTH_SOURCE_TYPE_PARAMETER:source_type}
+    enable-app-captcha: ${HZERO_OAUTH_ENABLE_APP_CAPTCHA:false}
+    enable-always-captcha: ${HZERO_OAUTH_ENABLE_ALWAYS_CAPTCHA:false}
+    credentials-allow-refresh: ${HZERO_OAUTH_CREDENTIALS_ALLOW_REFRESH:false}
+    check-redirect-uri: ${HZERO_OAUTH_CHECK_REDIRECT_URI:true}
+    base-url: ${HZERO_OAUTH_BASE_URL:http://dev.hzero.org:8080/oauth}
+    login:
+      support-fields: ${HZERO_OAUTH_LOGIN_SUPPORT_FIELDS:username,email,phone}
+      default-template: ${HZERO_OAUTH_LOGIN_DEFAULT_TEMPLATE:animate}
+      default-client-id: ${HZERO_OAUTH_LOGIN_DEFAULT_CLIENT_ID:hzero-front-dev}
+      success-url: ${HZERO_OAUTH_LOGIN_SUCCESS_URL:http://dev.hzero.org/workplace}
+      pass-replay-expire: ${HZERO_OAUTH_LOGIN_PASS_REPLAY_EXPIRE:30}
+      password-encrypt: ${HZERO_OAUTH_LOGIN_PASSWORD_ENCRYPT:true}
+      account-encrypt: ${HZERO_OAUTH_LOGIN_ACCOUNT_ENCRYPT:false}
+    sso:
+      saml:
+        entity-id: ${HZERO_OAUTH_SSO_SAML_ENTITY_ID:hzero:org:sp}
+        passphrase: ${HZERO_OAUTH_SSO_SAML_PASSPHRASE:secret}
+        private-key: ${HZERO_OAUTH_SSO_SAML_PRIVATE_KEY:=}
+        certificate: ${HZERO_OAUTH_SSO_SAML_CERTIFICATE:=}
+      enable-compatibility-mode: ${HZERO_OAUTH_SSO_ENABLE_COMPATIBILITY_MODE:false}
+    access-token-auto-renewal: true
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+  user:
+    enable-root: ${HZERO_USER_ENABLE_ROOT:false}
+logging:
+  level:
+    org.hzero: ${LOG_LEVEL:info}
+    io.choerodon: ${LOG_LEVEL:info}
+    org.springframework.security: ${LOG_LEVEL:info}
+    org.springframework.security.web.util.matcher: info
+    com.netflix.discovery: error

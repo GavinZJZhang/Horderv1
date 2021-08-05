@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hand.hodr.infra.mapper.SOHeaderPriceMapper">
+
+    <select id="selectSOHByIdNumStat" parameterType="org.hand.hodr.api.controller.v1.dto.SelectSOHByIdNumStatDto" resultType="org.hand.hodr.domain.entity.SOHeaderVo">
+        select sh.so_header_id soHeaderId,
+        order_number orderNumber,
+        sh.company_id companyId,
+        order_date orderDate,
+        order_status orderStatus,
+        sh.customer_id customerId,
+        sh.created_by createdBy,
+        sh.creation_date creationDate,
+        sh.last_updated_by lastUpdatedBy,
+        sh.last_update_date lastUpdateDate,
+        sh.object_version_number objectVersionNumber,
+        SUM(order_quantity*unit_selling_price) orderPrice
+        from hodr_so_header sh
+        left join hodr_company cp on sh.company_id=cp.company_id
+        left join hodr_customer ct on sh.customer_id=ct.customer_id
+        left join hodr_so_line sl on sh.so_header_id=sl.so_header_id
+        <where>
+            <if test="companyId != null and companyId != ''">
+                and sh.company_id = #{companyId}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                and sh.customer_id = #{customerId}
+            </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                and order_number like CONCAT('%',#{orderNumber},'%')
+            </if>
+            <if test="orderStatus != null and orderStatus != ''">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="soHeaderId != null and soHeaderId != ''">
+                and sh.so_header_id = #{soHeaderId}
+            </if>
+        </where>
+        group by sh.so_header_id
+    </select>
+
+</mapper>

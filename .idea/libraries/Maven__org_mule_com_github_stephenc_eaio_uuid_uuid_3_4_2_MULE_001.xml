@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.mule.com.github.stephenc.eaio-uuid:uuid:3.4.2-MULE-001">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/com/github/stephenc/eaio-uuid/uuid/3.4.2-MULE-001/uuid-3.4.2-MULE-001.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/com/github/stephenc/eaio-uuid/uuid/3.4.2-MULE-001/uuid-3.4.2-MULE-001-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/com/github/stephenc/eaio-uuid/uuid/3.4.2-MULE-001/uuid-3.4.2-MULE-001-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

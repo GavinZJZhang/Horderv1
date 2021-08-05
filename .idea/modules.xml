@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hand-admin/hand-admin-saas.iml" filepath="$PROJECT_DIR$/hand-admin/hand-admin-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-file-saas/hand-file-saas.iml" filepath="$PROJECT_DIR$/hand-file-saas/hand-file-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-gateway/hand-gateway.iml" filepath="$PROJECT_DIR$/hand-gateway/hand-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-iam-saas/hand-iam-saas.iml" filepath="$PROJECT_DIR$/hand-iam-saas/hand-iam-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-import-saas/hand-import-saas.iml" filepath="$PROJECT_DIR$/hand-import-saas/hand-import-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-interface-saas/hand-interface-saas.iml" filepath="$PROJECT_DIR$/hand-interface-saas/hand-interface-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-message-saas/hand-message-saas.iml" filepath="$PROJECT_DIR$/hand-message-saas/hand-message-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-oauth/hand-oauth.iml" filepath="$PROJECT_DIR$/hand-oauth/hand-oauth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-parent-33292.iml" filepath="$PROJECT_DIR$/hand-parent-33292.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-platform/hand-platform-saas.iml" filepath="$PROJECT_DIR$/hand-platform/hand-platform-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-register/hand-register.iml" filepath="$PROJECT_DIR$/hand-register/hand-register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-report-saas/hand-report-saas.iml" filepath="$PROJECT_DIR$/hand-report-saas/hand-report-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-scheduler-saas/hand-scheduler-saas.iml" filepath="$PROJECT_DIR$/hand-scheduler-saas/hand-scheduler-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-swagger/hand-swagger.iml" filepath="$PROJECT_DIR$/hand-swagger/hand-swagger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-workflow/hand-workflow.iml" filepath="$PROJECT_DIR$/hand-workflow/hand-workflow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hand-workflow-plus-saas/hand-workflow-plus-saas.iml" filepath="$PROJECT_DIR$/hand-workflow-plus-saas/hand-workflow-plus-saas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hzero-order/hzero-order.iml" filepath="$PROJECT_DIR$/hzero-order/hzero-order.iml" />
+    </modules>
+  </component>
+</project>

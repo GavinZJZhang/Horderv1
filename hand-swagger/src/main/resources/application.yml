@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: hzero-swagger
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_admin?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:1}
+    lettuce:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: ${HYSTRIX_THREADPOOL_DEFAULT_CORE_SIZE:128}
+      maximumSize: ${HYSTRIX_THREADPOOL_DEFAULT_MAXIMUM_SIZE:256}
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:12000}
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+hzero:
+  swagger:
+    client: ${HZERO_SWAGGER_CLIENT:client}
+    skip-service: ${HZERO_SWAGGER_SKIP_SERVICE:register, gateway, oauth}
+    fetch-time: ${HZERO_SWAGGER_FETCH_TIME:20}
+    fetch-seconds: ${HZERO_SWAGGER_FETCH_SECONDS:30}
+    base-url: ${HZERO_SWAGGER_BASE_URL:http://dev.hzero.org:8080}
+logging:
+  level:
+    org.hzero.mybatis: ${LOG_LEVEL:info}
+    org.springframework.web: ${LOG_LEVEL:info}

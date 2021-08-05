@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: hzero-register
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+    metadata-map:
+      VERSION: 1.4.0
+  client:
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:false}
+    serviceUrl:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://dev.hzero.org:8000/eureka}
+    registryFetchIntervalSeconds: 10
+    disable-delta: true
+  server:
+    evictionIntervalTimerInMs: 4000
+    enable-self-preservation: ${EUREKA_SERVER_ENABLE_SELF_PRESERVATION:false}

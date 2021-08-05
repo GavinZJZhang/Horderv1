@@ -1,0 +1,90 @@
+spring:
+  application:
+    name: hzero-import
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_import?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:1}
+    lettuce:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+  servlet:
+    multipart:
+      maxFileSize: 30Mb
+      maxRequestSize: 30Mb
+  thymeleaf:
+    prefix: classpath:/view/
+    mode: LEGACYHTML5
+  resources:
+    cache:
+      period: 3600
+    chain.gzipped: true
+    chain.cache: true
+    static-locations: classpath:/static/,classpath:/view/
+  mvc:
+    view:
+      suffix: .html
+server:
+  undertow:
+    io-threads: ${SERVER_UNDERTOW_IO_THREADS:4}
+    worker-threads: ${SERVER_UNDERTOW_WORKER_THREADS:128}
+    buffer-size: ${SERVER_UNDERTOW_BUFFER_SIZE:1024}
+    direct-buffers: true
+    max-http-post-size: 10485760
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: ${HYSTRIX_THREADPOOL_DEFAULT_CORE_SIZE:128}
+      maximumSize: ${HYSTRIX_THREADPOOL_DEFAULT_MAXIMUM_SIZE:256}
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:12000}
+ribbon:
+  ServerListRefreshInterval: ${RIBBON_SERVER_LIST_REFRESH_INTERVAL:10000}
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:5000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:2000}
+  OkToRetryOnAllOperations: false
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+hzero:
+  lov:
+    sql:
+      enabled: ${HZERO_LOV_SQL_ENABLED:true}
+    value:
+      enabled: ${HZERO_LOV_VALUE_ENABLED:true}
+  data:
+    permission:
+      db-owner: ${HZERO_DB_OWNER:}
+  resource:
+    pattern: ${HZERO_RESOURCE_PATTERN:/v1/*,/hzero/*,/himp/v1/*,/himp/hzero/*}
+  cache-value:
+    enable: true
+  import:
+    init-table: ${HZERO_IMPORT_INIT_TABLE:true}
+  file:
+    gateway-path: ${FILE_GATEWAY_URL:http://hzeronb.saas.hand-china.com/himp}
+logging:
+  level:
+    org.apache.ibatis: ${LOG_LEVEL:info}
+    io.choerodon: ${LOG_LEVEL:info}
+    org.hzero: ${LOG_LEVEL:info}

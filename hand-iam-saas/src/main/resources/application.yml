@@ -1,0 +1,122 @@
+spring:
+  application:
+    name: hzero-iam
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.hzero.org:3306/hzero_platform?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:hzero}
+    password: ${SPRING_DATASOURCE_PASSWORD:hzero}
+    hikari:
+      minimum-idle: ${SPRING_DATASOURCE_MINIMUM_IDLE:20}
+      maximum-pool-size: ${SPRING_DATASOURCE_MAXIMUM_POOL_SIZE:200}
+      connection-timeout: ${SPRING_DATASOURCE_CONNECTION_TIMEOUT:30000}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis.hzero.org}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: ${SPRING_REDIS_DATABASE:1}
+    lettuce:
+      pool:
+        max-active: ${SPRING_REDIS_POOL_MAX_ACTIVE:50}
+        max-idle: ${SPRING_REDIS_POOL_MAX_IDLE:50}
+        max-wait: ${SPRING_REDIS_POOL_MAX_WAIT:5000}
+  resources:
+    cache:
+      period: 3600
+    chain.gzipped: true
+    chain.cache: true
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+server:
+  undertow:
+    io-threads: ${SERVER_UNDERTOW_IO_THREADS:4}
+    worker-threads: ${SERVER_UNDERTOW_WORKER_THREADS:128}
+    buffer-size: ${SERVER_UNDERTOW_BUFFER_SIZE:1024}
+    direct-buffers: true
+    max-http-post-size: 10485760
+    allow-unescaped-characters-in-url: true
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  threadpool:
+    default:
+      coreSize: ${HYSTRIX_THREADPOOL_DEFAULT_CORE_SIZE:128}
+      maximumSize: ${HYSTRIX_THREADPOOL_DEFAULT_MAXIMUM_SIZE:256}
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: ${HYSTRIX_COMMAND_TIMEOUT_IN_MILLISECONDS:12000}
+ribbon:
+  ServerListRefreshInterval: ${RIBBON_SERVER_LIST_REFRESH_INTERVAL:10000}
+  ReadTimeout: ${RIBBON_READ_TIMEOUT:5000}
+  ConnectTimeout: ${RIBBON_CONNECT_TIMEOUT:2000}
+  OkToRetryOnAllOperations: false
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+mybatis:
+  mapperLocations: classpath*:/mapper/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+hzero:
+  data:
+    permission:
+      enabled: ${HZERO_ENABLE_DATA_PERMISSION:true}
+      db-owner: ${HZERO_DB_OWNER:}
+    change:
+      enable: ${HZERO_ENABLE_AUDIT:false}
+  scheduler:
+    executor-code: HIAM_EXECUTOR
+    auto-register: true
+  captcha:
+    sms:
+      expire: 5
+      interval: 60
+      limit-time: 10
+      limit-interval: 12
+    enable: true
+    test-disable: ${HZERO_CAPTCHA_TEST_DISABLE:false}
+  cache-value:
+    enable: true
+  field-permission:
+    enable: ${HZERO_FIELD_PERMISSION_ENABLE:true}
+  iam:
+    permission:
+      parse-permission: ${HZERO_PERMISSION_PARSE_PERMISSION:true}
+      skip-services: ${HZERO_PERMISSION_SKIP_PARSE_SERVICES:register,gateway,swagger}
+      clean-permission: ${HZERO_PERMISSION_CLEAN_PERMISSION:false}
+    init-cache:
+      open-login-way: ${HZERO_START_INIT_OPEN_LOGIN_WAY:true}
+      password-policy: ${HZERO_START_INIT_PASSWORD_POPLICY:true}
+      user: ${HZERO_START_INIT_USER:true}
+      ldap: ${HZERO_START_INIT_LDAP:true}
+      client: ${HZERO_START_INIT_CLIENT:true}
+      domain: ${HZERO_START_INIT_DOMAIN:true}
+      field-permission: ${HZERO_START_INIT_FIELD_PERMISSION:true}
+      doc-auth: ${HZERO_START_INIT_DOC_AUTH:true}
+    doc-tenant-type: ${HZERO_DOC_TENANT_TYPE:CUSTOM_TENANT}
+    username-regex: ${HZERO_IAM_USERNAME_REGEX:^[a-zA-Z0-9_-]{3,30}$}
+  resource:
+    pattern: ${HZERO_RESOURCE_PATTERN:/v1/*,/v2/*,/hzero/*,/iam/v1/*,/iam/hzero/*}
+  export:
+    enable-async: true
+  user:
+    enable-root: ${HZERO_USER_ENABLE_ROOT:false}
+  audit:
+    operation:
+      enable: ${HZERO_ENABLE_OP_AUDIT:false}
+    data:
+      enable: ${HZERO_ENABLE_DATA_AUDIT:false}
+  platform:
+    regist-entity:
+      enable: true
+  actuator:
+    show-executor-info: ${HZERO_ACTUATOR_SHOW_EXECUTOR_INFO:true}
+logging:
+  level:
+    org.apache.ibatis: ${LOG_LEVEL:info}
+    io.choerodon: ${LOG_LEVEL:info}
+    org.hzero: ${LOG_LEVEL:info}
+    org.hzero.boot.platform.lov: info
